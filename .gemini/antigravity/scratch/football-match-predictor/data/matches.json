@@ -1,0 +1,522 @@
+[
+  {
+    "id": "match-1792125939593",
+    "league": "UEFA Champions League",
+    "stage": "Regular Match",
+    "venue": "Wembley stadium",
+    "date": "Full Time (FT)",
+    "status": "finished",
+    "minute": 90,
+    "featured": false,
+    "homeTeam": {
+      "name": "Man city",
+      "short": "MAN",
+      "color": "#3b82f6",
+      "bg": "#1e293b",
+      "flag": "🔴",
+      "form": [
+        "W",
+        "D",
+        "W",
+        "W",
+        "D"
+      ],
+      "score": 2
+    },
+    "awayTeam": {
+      "name": "Real Madrid",
+      "short": "REA",
+      "color": "#10b981",
+      "bg": "#0f172a",
+      "flag": "⚪",
+      "form": [
+        "D",
+        "W",
+        "L",
+        "W",
+        "W"
+      ],
+      "score": 0
+    },
+    "votes": {
+      "home": 1,
+      "draw": 0,
+      "away": 1
+    },
+    "odds": {
+      "home": "2.10",
+      "draw": "3.40",
+      "away": "3.10"
+    },
+    "stats": {
+      "h2h": {
+        "homeWins": 1,
+        "draws": 1,
+        "awayWins": 1
+      },
+      "possession": {
+        "home": 50,
+        "away": 50
+      },
+      "keyPlayer": {
+        "home": "Star Striker",
+        "away": "Playmaker"
+      }
+    }
+  },
+  {
+    "id": "match-1",
+    "league": "UEFA Champions League",
+    "stage": "Semi-Final • 1st Leg",
+    "venue": "Santiago Bernabéu, Madrid",
+    "date": "Full Time (FT)",
+    "status": "live",
+    "minute": 15,
+    "featured": true,
+    "homeTeam": {
+      "name": "Real Madrid",
+      "short": "RMA",
+      "color": "#FEBE10",
+      "bg": "#1e293b",
+      "flag": "🇪🇸",
+      "form": [
+        "W",
+        "W",
+        "D",
+        "W",
+        "W"
+      ],
+      "score": 0
+    },
+    "awayTeam": {
+      "name": "Manchester City",
+      "short": "MCI",
+      "color": "#6CABDD",
+      "bg": "#0f172a",
+      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "form": [
+        "W",
+        "W",
+        "W",
+        "D",
+        "W"
+      ],
+      "score": 0
+    },
+    "votes": {
+      "home": 2841,
+      "draw": 920,
+      "away": 3150
+    },
+    "odds": {
+      "home": "2.40",
+      "draw": "3.50",
+      "away": "2.65"
+    },
+    "stats": {
+      "h2h": {
+        "homeWins": 4,
+        "draws": 4,
+        "awayWins": 5
+      },
+      "possession": {
+        "home": 48,
+        "away": 52
+      },
+      "keyPlayer": {
+        "home": "Vinícius Jr",
+        "away": "Erling Haaland"
+      }
+    }
+  },
+  {
+    "id": "match-2",
+    "league": "Premier League",
+    "stage": "Matchday 31",
+    "venue": "Emirates Stadium, London",
+    "date": "Full Time (FT)",
+    "status": "finished",
+    "minute": 90,
+    "featured": false,
+    "homeTeam": {
+      "name": "Arsenal",
+      "short": "ARS",
+      "color": "#EF0107",
+      "bg": "#1e293b",
+      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "form": [
+        "W",
+        "W",
+        "W",
+        "W",
+        "L"
+      ],
+      "score": 2
+    },
+    "awayTeam": {
+      "name": "Chelsea",
+      "short": "CHE",
+      "color": "#034694",
+      "bg": "#0f172a",
+      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "form": [
+        "D",
+        "W",
+        "L",
+        "W",
+        "D"
+      ],
+      "score": 1
+    },
+    "votes": {
+      "home": 4120,
+      "draw": 780,
+      "away": 1250
+    },
+    "odds": {
+      "home": "1.80",
+      "draw": "3.75",
+      "away": "4.20"
+    },
+    "stats": {
+      "h2h": {
+        "homeWins": 6,
+        "draws": 3,
+        "awayWins": 3
+      },
+      "possession": {
+        "home": 56,
+        "away": 44
+      },
+      "keyPlayer": {
+        "home": "Bukayo Saka",
+        "away": "Cole Palmer"
+      }
+    }
+  },
+  {
+    "id": "match-3",
+    "league": "La Liga",
+    "stage": "El Clásico • Matchday 32",
+    "venue": "Camp Nou, Barcelona",
+    "date": "Full Time (FT)",
+    "status": "finished",
+    "minute": 90,
+    "featured": false,
+    "homeTeam": {
+      "name": "FC Barcelona",
+      "short": "BAR",
+      "color": "#A50044",
+      "bg": "#1e293b",
+      "flag": "🇪🇸",
+      "form": [
+        "W",
+        "W",
+        "W",
+        "D",
+        "W"
+      ],
+      "score": 1
+    },
+    "awayTeam": {
+      "name": "Atlético Madrid",
+      "short": "ATM",
+      "color": "#CB3524",
+      "bg": "#0f172a",
+      "flag": "🇪🇸",
+      "form": [
+        "W",
+        "D",
+        "W",
+        "W",
+        "L"
+      ],
+      "score": 0
+    },
+    "votes": {
+      "home": 3411,
+      "draw": 1150,
+      "away": 1820
+    },
+    "odds": {
+      "home": "1.95",
+      "draw": "3.60",
+      "away": "3.80"
+    },
+    "stats": {
+      "h2h": {
+        "homeWins": 7,
+        "draws": 4,
+        "awayWins": 3
+      },
+      "possession": {
+        "home": 62,
+        "away": 38
+      },
+      "keyPlayer": {
+        "home": "Lamine Yamal",
+        "away": "Antoine Griezmann"
+      }
+    }
+  },
+  {
+    "id": "match-4",
+    "league": "UEFA Champions League",
+    "stage": "Semi-Final • 1st Leg",
+    "venue": "Allianz Arena, Munich",
+    "date": "Full Time (FT)",
+    "status": "finished",
+    "minute": 90,
+    "featured": false,
+    "homeTeam": {
+      "name": "Bayern Munich",
+      "short": "BAY",
+      "color": "#DC052D",
+      "bg": "#1e293b",
+      "flag": "🇩🇪",
+      "form": [
+        "W",
+        "W",
+        "L",
+        "W",
+        "W"
+      ],
+      "score": 0
+    },
+    "awayTeam": {
+      "name": "Paris Saint-Germain",
+      "short": "PSG",
+      "color": "#004170",
+      "bg": "#0f172a",
+      "flag": "🇫🇷",
+      "form": [
+        "W",
+        "W",
+        "W",
+        "W",
+        "D"
+      ],
+      "score": 2
+    },
+    "votes": {
+      "home": 2690,
+      "draw": 890,
+      "away": 2410
+    },
+    "odds": {
+      "home": "2.20",
+      "draw": "3.55",
+      "away": "2.90"
+    },
+    "stats": {
+      "h2h": {
+        "homeWins": 5,
+        "draws": 1,
+        "awayWins": 4
+      },
+      "possession": {
+        "home": 51,
+        "away": 49
+      },
+      "keyPlayer": {
+        "home": "Harry Kane",
+        "away": "Kylian Mbappé"
+      }
+    }
+  },
+  {
+    "id": "match-5",
+    "league": "Serie A",
+    "stage": "Derby d'Italia",
+    "venue": "San Siro, Milan",
+    "date": "Full Time (FT)",
+    "status": "finished",
+    "minute": 90,
+    "featured": false,
+    "homeTeam": {
+      "name": "Inter Milan",
+      "short": "INT",
+      "color": "#005CA9",
+      "bg": "#1e293b",
+      "flag": "🇮🇹",
+      "form": [
+        "W",
+        "W",
+        "W",
+        "W",
+        "W"
+      ],
+      "score": 2
+    },
+    "awayTeam": {
+      "name": "Juventus",
+      "short": "JUV",
+      "color": "#FFFFFF",
+      "bg": "#0f172a",
+      "flag": "🇮🇹",
+      "form": [
+        "W",
+        "D",
+        "D",
+        "W",
+        "L"
+      ],
+      "score": 0
+    },
+    "votes": {
+      "home": 3890,
+      "draw": 1420,
+      "away": 1650
+    },
+    "odds": {
+      "home": "1.75",
+      "draw": "3.40",
+      "away": "4.60"
+    },
+    "stats": {
+      "h2h": {
+        "homeWins": 4,
+        "draws": 5,
+        "awayWins": 5
+      },
+      "possession": {
+        "home": 55,
+        "away": 45
+      },
+      "keyPlayer": {
+        "home": "Lautaro Martínez",
+        "away": "Dušan Vlahović"
+      }
+    }
+  },
+  {
+    "id": "match-6",
+    "league": "Premier League",
+    "stage": "Matchday 30",
+    "venue": "Anfield, Liverpool",
+    "date": "Finished Yesterday",
+    "status": "finished",
+    "minute": 90,
+    "featured": false,
+    "homeTeam": {
+      "name": "Liverpool",
+      "short": "LIV",
+      "color": "#C8102E",
+      "bg": "#1e293b",
+      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "form": [
+        "W",
+        "W",
+        "W",
+        "D",
+        "W"
+      ],
+      "score": 3
+    },
+    "awayTeam": {
+      "name": "Manchester United",
+      "short": "MUN",
+      "color": "#DA291C",
+      "bg": "#0f172a",
+      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "form": [
+        "L",
+        "W",
+        "L",
+        "D",
+        "W"
+      ],
+      "score": 1
+    },
+    "votes": {
+      "home": 5420,
+      "draw": 610,
+      "away": 1130
+    },
+    "odds": {
+      "home": "1.55",
+      "draw": "4.20",
+      "away": "5.50"
+    },
+    "stats": {
+      "h2h": {
+        "homeWins": 6,
+        "draws": 4,
+        "awayWins": 2
+      },
+      "possession": {
+        "home": 64,
+        "away": 36
+      },
+      "keyPlayer": {
+        "home": "Mohamed Salah",
+        "away": "Bruno Fernandes"
+      }
+    }
+  },
+  {
+    "id": "match-7",
+    "league": "Bundesliga",
+    "stage": "Matchday 29",
+    "venue": "Signal Iduna Park, Dortmund",
+    "date": "Full Time (FT)",
+    "status": "finished",
+    "minute": 90,
+    "featured": false,
+    "homeTeam": {
+      "name": "Borussia Dortmund",
+      "short": "BVB",
+      "color": "#FDE100",
+      "bg": "#1e293b",
+      "flag": "🇩🇪",
+      "form": [
+        "W",
+        "W",
+        "L",
+        "W",
+        "D"
+      ],
+      "score": 0
+    },
+    "awayTeam": {
+      "name": "Bayer Leverkusen",
+      "short": "B04",
+      "color": "#E32221",
+      "bg": "#0f172a",
+      "flag": "🇩🇪",
+      "form": [
+        "W",
+        "W",
+        "W",
+        "W",
+        "W"
+      ],
+      "score": 0
+    },
+    "votes": {
+      "home": 2150,
+      "draw": 1340,
+      "away": 2980
+    },
+    "odds": {
+      "home": "2.85",
+      "draw": "3.65",
+      "away": "2.25"
+    },
+    "stats": {
+      "h2h": {
+        "homeWins": 5,
+        "draws": 2,
+        "awayWins": 5
+      },
+      "possession": {
+        "home": 47,
+        "away": 53
+      },
+      "keyPlayer": {
+        "home": "Julian Brandt",
+        "away": "Florian Wirtz"
+      }
+    }
+  }
+]

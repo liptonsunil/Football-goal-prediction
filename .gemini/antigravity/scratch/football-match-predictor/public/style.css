@@ -1,0 +1,115 @@
+/* Football Match Predictor Custom Styles */
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0e1a;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Nav Button States */
+.nav-btn.active {
+  background: #10b981;
+  color: #022c22;
+  box-shadow: 0 4px 14px 0 rgba(16, 185, 129, 0.3);
+}
+
+.league-filter-btn.active {
+  background: #1e293b;
+  color: #ffffff;
+  border: 1px solid #334155;
+}
+
+/* Vote Buttons & Bars */
+.vote-btn {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.vote-btn:hover {
+  transform: translateY(-2px);
+}
+
+.vote-btn:active {
+  transform: scale(0.97);
+}
+
+.vote-btn.selected {
+  border-color: #10b981 !important;
+  background-color: rgba(16, 185, 129, 0.15) !important;
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);
+}
+
+.vote-btn.selected-draw {
+  border-color: #f59e0b !important;
+  background-color: rgba(245, 158, 11, 0.15) !important;
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.25);
+}
+
+.vote-btn.selected-away {
+  border-color: #3b82f6 !important;
+  background-color: rgba(59, 130, 246, 0.15) !important;
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.25);
+}
+
+/* Percentage Bar Animations */
+.vote-pct-bar {
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Pulsing Live indicator */
+@keyframes pulse-live {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
+}
+
+.live-pulse {
+  animation: pulse-live 2s infinite ease-in-out;
+}
+
+/* Card hover glow */
+.match-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.match-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(51, 65, 85, 0.9);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+}
+
+/* Form Form Guide indicators */
+.form-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 4px;
+}
+.form-w { background-color: #10b981; color: #022c22; }
+.form-d { background-color: #f59e0b; color: #451a03; }
+.form-l { background-color: #ef4444; color: #450a0a; }
+
+/* Custom range/number input styling */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

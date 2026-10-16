@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KickPredict ⚽ - Football Match Prediction & Voting</title>
+  <meta name="description" content="Vote and predict football match winners in real-time. Track accuracy, compete on the leaderboard, and test live fixtures." />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Cabinet+Grotesk:wght@700;800;900&display=swap" rel="stylesheet">
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Cabinet Grotesk"', '"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            pitch: {
+              50: '#f0fdf4',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              900: '#052e16',
+              950: '#02180b',
+            },
+            stadium: {
+              800: '#131b2e',
+              850: '#0e1526',
+              900: '#0a0e1a',
+              950: '#060911',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-stadium-950 text-slate-100 min-h-screen font-sans selection:bg-emerald-500 selection:text-white flex flex-col">
+
+  <!-- Ambient Glow Background -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+    <div class="absolute -top-40 -left-40 w-96 h-96 bg-emerald-600/10 rounded-full blur-3xl"></div>
+    <div class="absolute top-1/3 -right-40 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl"></div>
+    <div class="absolute -bottom-40 left-1/3 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl"></div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <header class="sticky top-0 z-40 backdrop-blur-xl bg-stadium-950/80 border-b border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Logo & Brand -->
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-500/20 text-2xl animate-pulse">
+          ⚽
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-display font-extrabold text-2xl tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-400 bg-clip-text text-transparent">KickPredict</span>
+            <span class="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-full">Live Votes</span>
+          </div>
+          <p class="text-xs text-slate-400 hidden sm:block">Vote & predict football match winners in real-time</p>
+        </div>
+      </div>
+
+      <!-- Quick Nav Tabs -->
+      <nav class="flex items-center bg-slate-900/90 p-1.5 rounded-2xl border border-slate-800 shadow-inner">
+        <button id="nav-fixtures" class="nav-btn active flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200">
+          <span>🏟️</span>
+          <span>Matches</span>
+        </button>
+        <button id="nav-my-predictions" class="nav-btn flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-slate-400 hover:text-slate-200 transition-all duration-200 relative">
+          <span>🎯</span>
+          <span>My Predictions</span>
+          <span id="badge-my-pred-count" class="hidden px-1.5 py-0.2 text-[10px] bg-emerald-500 text-slate-950 font-bold rounded-full">0</span>
+        </button>
+        <button id="nav-leaderboard" class="nav-btn flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-slate-400 hover:text-slate-200 transition-all duration-200">
+          <span>🏆</span>
+          <span class="hidden sm:inline">Leaderboard</span>
+        </button>
+      </nav>
+
+      <!-- User Stats & Action Buttons -->
+      <div class="flex items-center gap-3">
+        <!-- Sound Effect Toggle -->
+        <button id="btn-sound-toggle" title="Toggle Sound Effects" class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-700 flex items-center justify-center text-slate-300 hover:text-white transition-colors">
+          <span id="sound-icon">🔊</span>
+        </button>
+
+        <!-- User Points Pill -->
+        <div class="hidden sm:flex items-center gap-2.5 px-3.5 py-2 bg-gradient-to-r from-amber-500/10 to-emerald-500/10 border border-amber-500/20 rounded-2xl">
+          <span class="text-base">⭐</span>
+          <div>
+            <div class="text-[10px] uppercase font-bold tracking-wider text-amber-400/90 leading-tight">My Score</div>
+            <div id="header-user-points" class="text-sm font-bold text-white leading-tight">120 pts</div>
+          </div>
+        </div>
+
+        <!-- Add Match Button -->
+        <button id="btn-open-create-modal" class="flex items-center gap-1.5 px-3.5 py-2 bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-slate-950 font-bold text-sm rounded-xl shadow-lg shadow-emerald-500/20 transition-all">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path></svg>
+          <span class="hidden md:inline">Add Match</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed top-24 right-6 z-50 transform translate-y-[-20px] opacity-0 pointer-events-none transition-all duration-300 flex items-center gap-3 px-4 py-3 rounded-2xl bg-slate-900/95 border border-emerald-500/40 shadow-2xl text-sm font-medium text-white backdrop-blur-md">
+    <span id="toast-icon" class="text-xl">⚽</span>
+    <span id="toast-msg">Prediction registered!</span>
+  </div>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 z-10">
+
+    <!-- VIEW 1: MATCH FIXTURES & VOTING -->
+    <section id="view-fixtures" class="space-y-8">
+      
+      <!-- Top Spotlight Hero Banner -->
+      <div id="featured-match-container">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Filter Controls & Search -->
+      <div class="bg-stadium-900/60 backdrop-blur-md p-4 rounded-3xl border border-slate-800/80 flex flex-col md:flex-row items-center justify-between gap-4">
+        
+        <!-- League filter pills -->
+        <div class="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-1 md:pb-0 scrollbar-none">
+          <button data-filter="all" class="league-filter-btn active px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all">
+            All Matches
+          </button>
+          <button data-filter="UEFA Champions League" class="league-filter-btn px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap text-slate-400 hover:text-white transition-all">
+            ⭐ Champions League
+          </button>
+          <button data-filter="Premier League" class="league-filter-btn px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap text-slate-400 hover:text-white transition-all">
+            🦁 Premier League
+          </button>
+          <button data-filter="La Liga" class="league-filter-btn px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap text-slate-400 hover:text-white transition-all">
+            🇪🇸 La Liga
+          </button>
+          <button data-filter="Serie A" class="league-filter-btn px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap text-slate-400 hover:text-white transition-all">
+            🇮🇹 Serie A
+          </button>
+          <button data-filter="live" class="league-filter-btn px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap text-rose-400 hover:text-rose-300 transition-all flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
+            Live Now
+          </button>
+        </div>
+
+        <!-- Search Box & Match Reset -->
+        <div class="flex items-center gap-3 w-full md:w-auto">
+          <div class="relative flex-1 md:w-64">
+            <input 
+              type="text" 
+              id="search-input" 
+              placeholder="Search team or club..." 
+              class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 pl-9 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500/70 transition-colors"
+            />
+            <svg class="w-4 h-4 text-slate-500 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+          </div>
+
+          <button id="btn-reset-data" title="Reset all fixtures to original state" class="px-3 py-2 bg-slate-800/80 hover:bg-slate-700/80 text-slate-400 hover:text-slate-200 rounded-xl text-xs font-semibold border border-slate-700 transition-all flex items-center gap-1.5 whitespace-nowrap">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+            <span>Reset Demo</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Grid of Match Cards -->
+      <div id="matches-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Rendered dynamically by JS -->
+      </div>
+
+    </section>
+
+    <!-- VIEW 2: MY PREDICTIONS -->
+    <section id="view-my-predictions" class="hidden space-y-8">
+      
+      <!-- Stats Overview Banner -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div class="bg-stadium-900/80 border border-slate-800 p-5 rounded-3xl">
+          <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Predictions</div>
+          <div id="stat-total-preds" class="text-3xl font-display font-extrabold text-white mt-1">0</div>
+        </div>
+        <div class="bg-stadium-900/80 border border-slate-800 p-5 rounded-3xl">
+          <div class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Correct Outcomes</div>
+          <div id="stat-correct-preds" class="text-3xl font-display font-extrabold text-emerald-400 mt-1">0</div>
+        </div>
+        <div class="bg-stadium-900/80 border border-slate-800 p-5 rounded-3xl">
+          <div class="text-xs font-bold text-blue-400 uppercase tracking-wider">Accuracy Rate</div>
+          <div id="stat-accuracy" class="text-3xl font-display font-extrabold text-blue-400 mt-1">0%</div>
+        </div>
+        <div class="bg-stadium-900/80 border border-slate-800 p-5 rounded-3xl">
+          <div class="text-xs font-bold text-amber-400 uppercase tracking-wider">Points Earned</div>
+          <div id="stat-points" class="text-3xl font-display font-extrabold text-amber-400 mt-1">120</div>
+        </div>
+      </div>
+
+      <!-- User Predictions List -->
+      <div class="bg-stadium-900/60 border border-slate-800/80 rounded-3xl p-6 backdrop-blur-md">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h2 class="text-xl font-bold font-display text-white">Your Prediction Slips</h2>
+            <p class="text-xs text-slate-400">Track all your votes, exact score calls, and verified points.</p>
+          </div>
+          <span class="text-xs font-semibold px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full">
+            +10 pts for correct winner • +30 pts for exact score
+          </span>
+        </div>
+
+        <div id="user-predictions-list" class="space-y-4">
+          <!-- Rendered dynamically by JS -->
+        </div>
+      </div>
+
+    </section>
+
+    <!-- VIEW 3: LEADERBOARD -->
+    <section id="view-leaderboard" class="hidden space-y-8">
+      
+      <div class="bg-gradient-to-r from-emerald-950/60 via-stadium-900 to-stadium-900 border border-emerald-500/20 rounded-3xl p-8 relative overflow-hidden">
+        <div class="relative z-10 max-w-xl">
+          <span class="px-3 py-1 bg-amber-500/20 text-amber-300 border border-amber-500/30 rounded-full text-xs font-bold uppercase tracking-wider">Hall of Fame</span>
+          <h2 class="text-3xl font-display font-black text-white mt-3">Community Predictor Leaderboard</h2>
+          <p class="text-sm text-slate-300 mt-2">
+            Top football analysts and fan predictors this week. Earn points by correctly predicting match outcomes and nailing exact scores!
+          </p>
+        </div>
+      </div>
+
+      <div class="bg-stadium-900/80 border border-slate-800 rounded-3xl overflow-hidden shadow-xl">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-slate-950/80 text-slate-400 uppercase text-[10px] tracking-wider border-b border-slate-800">
+              <tr>
+                <th class="py-4 px-6">Rank</th>
+                <th class="py-4 px-6">Predictor</th>
+                <th class="py-4 px-6">Accuracy</th>
+                <th class="py-4 px-6">Correct / Total</th>
+                <th class="py-4 px-6">Current Streak</th>
+                <th class="py-4 px-6 text-right">Points</th>
+              </tr>
+            </thead>
+            <tbody id="leaderboard-table-body" class="divide-y divide-slate-800/60">
+              <!-- Rendered dynamically by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- MODAL: ADD CUSTOM MATCH -->
+  <div id="modal-create-match" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/75 backdrop-blur-md">
+    <div class="bg-stadium-900 border border-slate-800 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
+      
+      <button id="btn-close-create-modal" class="absolute top-6 right-6 w-9 h-9 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center text-slate-400 hover:text-white transition-colors">
+        ✕
+      </button>
+
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center text-xl">
+          ➕
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-white font-display">Add Football Fixture</h3>
+          <p class="text-xs text-slate-400">Add an upcoming match so fans can vote and predict!</p>
+        </div>
+      </div>
+
+      <form id="form-create-match" class="space-y-4">
+        
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">Home Team</label>
+            <input type="text" id="input-home-team" required placeholder="e.g. Liverpool" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">Away Team</label>
+            <input type="text" id="input-away-team" required placeholder="e.g. Real Madrid" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">Home Flag / Emoji</label>
+            <input type="text" id="input-home-flag" value="🔴" placeholder="🔴 or 🇪🇸" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">Away Flag / Emoji</label>
+            <input type="text" id="input-away-flag" value="⚪" placeholder="⚪ or 🏴󠁧󠁢󠁥󠁮󠁧󠁿" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">League / Tournament</label>
+          <select id="input-league" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors">
+            <option value="UEFA Champions League">UEFA Champions League</option>
+            <option value="Premier League">Premier League</option>
+            <option value="La Liga">La Liga</option>
+            <option value="Serie A">Serie A</option>
+            <option value="Bundesliga">Bundesliga</option>
+            <option value="FIFA World Cup">FIFA World Cup</option>
+            <option value="International Friendly">International Friendly</option>
+          </select>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">Venue</label>
+            <input type="text" id="input-venue" placeholder="e.g. Wembley Stadium" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">Kickoff Time</label>
+            <input type="text" id="input-date" placeholder="e.g. Sunday • 20:00 GMT" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors" />
+          </div>
+        </div>
+
+        <div class="pt-4 flex items-center justify-end gap-3">
+          <button type="button" id="btn-cancel-create" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-slate-400 hover:text-white hover:bg-slate-800 transition-colors">
+            Cancel
+          </button>
+          <button type="submit" class="px-6 py-2.5 bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-slate-950 font-bold text-sm rounded-xl shadow-lg shadow-emerald-500/20 transition-all">
+            Publish Fixture
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: H2H & MATCH STATS -->
+  <div id="modal-match-details" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/75 backdrop-blur-md">
+    <div class="bg-stadium-900 border border-slate-800 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative">
+      <button id="btn-close-details-modal" class="absolute top-6 right-6 w-9 h-9 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center text-slate-400 hover:text-white transition-colors">
+        ✕
+      </button>
+      <div id="match-details-content">
+        <!-- Rendered dynamically by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="mt-auto border-t border-slate-900 bg-stadium-950/80 py-8 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <span class="text-emerald-500 font-bold">⚽ KickPredict</span>
+        <span>• Real-time Football Prediction & Community Voting</span>
+      </div>
+      <div>Made for football fans with interactive live simulation and predictions</div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
